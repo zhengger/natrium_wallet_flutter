@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:event_taxi/event_taxi.dart';
-import 'package:nanodart/nanodart.dart';
+// import 'package:nanodart/nanodart.dart';
 
-import 'package:natrium_wallet_flutter/service_locator.dart';
+// import 'package:natrium_wallet_flutter/service_locator.dart';
 import 'package:natrium_wallet_flutter/appstate_container.dart';
 import 'package:natrium_wallet_flutter/localization.dart';
 import 'package:natrium_wallet_flutter/dimens.dart';
@@ -16,20 +16,20 @@ import 'package:natrium_wallet_flutter/ui/widgets/auto_resize_text.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/sheets.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/buttons.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/dialog.dart';
-import 'package:natrium_wallet_flutter/ui/widgets/security.dart';
+// import 'package:natrium_wallet_flutter/ui/widgets/security.dart';
 import 'package:natrium_wallet_flutter/ui/util/routes.dart';
 import 'package:natrium_wallet_flutter/styles.dart';
 import 'package:natrium_wallet_flutter/app_icons.dart';
 import 'package:natrium_wallet_flutter/util/ninja/ninja_node.dart';
-import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
-import 'package:natrium_wallet_flutter/util/biometrics.dart';
+// import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
+// import 'package:natrium_wallet_flutter/util/biometrics.dart'; //! disable local_auth
 import 'package:natrium_wallet_flutter/util/numberutil.dart';
-import 'package:natrium_wallet_flutter/util/hapticutil.dart';
+// import 'package:natrium_wallet_flutter/util/hapticutil.dart';
 import 'package:natrium_wallet_flutter/util/caseconverter.dart';
-import 'package:natrium_wallet_flutter/model/address.dart';
-import 'package:natrium_wallet_flutter/model/authentication_method.dart';
-import 'package:natrium_wallet_flutter/model/state_block.dart';
-import 'package:natrium_wallet_flutter/model/vault.dart';
+// import 'package:natrium_wallet_flutter/model/address.dart';
+// import 'package:natrium_wallet_flutter/model/authentication_method.dart';
+// import 'package:natrium_wallet_flutter/model/state_block.dart';
+// import 'package:natrium_wallet_flutter/model/vault.dart';
 
 import 'changerepresentativemanualentry_sheet.dart';
 
@@ -94,10 +94,11 @@ class AppChangeRepresentativeSheet {
             highlightColor: StateContainer.of(context).curTheme.text15,
             splashColor: StateContainer.of(context).curTheme.text15,
             onPressed: () {
+              /*
               if (!NanoAccounts.isValid(NanoAccountType.NANO, rep.account)) {
                   return;
               }
-                // Authenticate
+                //! Authenticate, disable local_auth
                 sl
                     .get<SharedPrefsUtil>()
                     .getAuthMethod()
@@ -241,6 +242,7 @@ class AppChangeRepresentativeSheet {
                     }
                  });
                 });
+             */
             },
             padding: EdgeInsets.all(0),
             child: Container(
@@ -271,7 +273,8 @@ class AppChangeRepresentativeSheet {
                               text: '',
                               children: [
                                 TextSpan(
-                                  text: "${AppLocalization.of(context).votingWeight}: ",
+                                  text:
+                                      "${AppLocalization.of(context).votingWeight}: ",
                                   style: TextStyle(
                                     color: StateContainer.of(context)
                                         .curTheme
@@ -285,12 +288,13 @@ class AppChangeRepresentativeSheet {
                                   text: NumberUtil.getPercentOfTotalSupply(
                                       rep.votingWeight),
                                   style: TextStyle(
-                                      color: StateContainer.of(context)
-                                          .curTheme
-                                          .primary,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.0,
-                                      fontFamily: 'Nunito Sans'),
+                                    color: StateContainer.of(context)
+                                        .curTheme
+                                        .primary,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.0,
+                                    // fontFamily: 'Nunito Sans'),
+                                  ),
                                 ),
                                 TextSpan(
                                   text: "%",
@@ -313,7 +317,8 @@ class AppChangeRepresentativeSheet {
                               text: '',
                               children: [
                                 TextSpan(
-                                  text: "${AppLocalization.of(context).uptime}: ",
+                                  text:
+                                      "${AppLocalization.of(context).uptime}: ",
                                   style: TextStyle(
                                       color: StateContainer.of(context)
                                           .curTheme
@@ -350,16 +355,15 @@ class AppChangeRepresentativeSheet {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsetsDirectional.only(end: 24, start:14),
+                    margin: EdgeInsetsDirectional.only(end: 24, start: 14),
                     child: Stack(
                       children: <Widget>[
                         Container(
                             child: Icon(
-                              AppIcons.score,
-                              color:
-                                  StateContainer.of(context).curTheme.primary,
-                              size: 50,
-                            )),
+                          AppIcons.score,
+                          color: StateContainer.of(context).curTheme.primary,
+                          size: 50,
+                        )),
                         Container(
                           alignment: AlignmentDirectional(-0.03, 0.03),
                           width: 50,
@@ -463,7 +467,8 @@ class AppChangeRepresentativeSheet {
                               Container(
                                 width: 50,
                                 height: 50,
-                                margin: EdgeInsetsDirectional.only(top: 10.0, end: 10.0),
+                                margin: EdgeInsetsDirectional.only(
+                                    top: 10.0, end: 10.0),
                                 child: FlatButton(
                                   highlightColor: StateContainer.of(context)
                                       .curTheme
@@ -502,9 +507,9 @@ class AppChangeRepresentativeSheet {
                                   bottom: smallScreen(context) ? 20 : 35),
                               child: Stack(children: <Widget>[
                                 Container(
-                                    color: Colors.transparent,
-                                    child: SizedBox.expand(),
-                                    constraints: BoxConstraints.expand(),
+                                  color: Colors.transparent,
+                                  child: SizedBox.expand(),
+                                  constraints: BoxConstraints.expand(),
                                 ),
                                 Column(
                                   children: <Widget>[

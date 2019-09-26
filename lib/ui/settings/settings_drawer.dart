@@ -34,7 +34,7 @@ import 'package:natrium_wallet_flutter/ui/widgets/dialog.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/security.dart';
 import 'package:natrium_wallet_flutter/ui/util/ui_util.dart';
 import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
-import 'package:natrium_wallet_flutter/util/biometrics.dart';
+// import 'package:natrium_wallet_flutter/util/biometrics.dart'; //! disable local_auth
 import 'package:natrium_wallet_flutter/util/hapticutil.dart';
 import 'package:natrium_wallet_flutter/util/numberutil.dart';
 import 'package:natrium_wallet_flutter/util/caseconverter.dart';
@@ -84,11 +84,12 @@ class _SettingsSheetState extends State<SettingsSheet>
     _securityOpen = false;
     _loadingAccounts = false;
     // Determine if they have face or fingerprint enrolled, if not hide the setting
-    sl.get<BiometricUtil>().hasBiometrics().then((bool hasBiometrics) {
-      setState(() {
-        _hasBiometrics = hasBiometrics;
-      });
-    });
+    //! disable local_auth
+    // sl.get<BiometricUtil>().hasBiometrics().then((bool hasBiometrics) {
+    //   setState(() {
+    //     _hasBiometrics = hasBiometrics;
+    //   });
+    // });
     // Get default auth method setting
     sl.get<SharedPrefsUtil>().getAuthMethod().then((authMethod) {
       setState(() {
@@ -679,7 +680,7 @@ class _SettingsSheetState extends State<SettingsSheet>
                                 width: 60,
                                 height: 45,
                                 child: FlatButton(
-                              
+
                                   highlightColor: StateContainer.of(context)
                                       .curTheme
                                       .backgroundDark
@@ -1029,40 +1030,41 @@ class _SettingsSheetState extends State<SettingsSheet>
                         AppIcons.backupseed, onPressed: () {
                       // Authenticate
                       sl.get<SharedPrefsUtil>().getAuthMethod().then((authMethod) {
-                        sl.get<BiometricUtil>().hasBiometrics().then((hasBiometrics) {
-                          if (authMethod.method == AuthMethod.BIOMETRICS &&
-                              hasBiometrics) {
-                            sl.get<BiometricUtil>().authenticateWithBiometrics(
-                                    context,
-                                    AppLocalization.of(context)
-                                        .fingerprintSeedBackup)
-                                .then((authenticated) {
-                              if (authenticated) {
-                                sl.get<HapticUtil>().fingerprintSucess();
-                                new AppSeedBackupSheet()
-                                    .mainBottomSheet(context);
-                              }
-                            });
-                          } else {
-                            // PIN Authentication
-                            sl.get<Vault>().getPin().then((expectedPin) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return new PinScreen(
-                                  PinOverlayType.ENTER_PIN,
-                                  (pin) {
-                                    Navigator.of(context).pop();
-                                    new AppSeedBackupSheet()
-                                        .mainBottomSheet(context);
-                                  },
-                                  expectedPin: expectedPin,
-                                  description:
-                                      AppLocalization.of(context).pinSeedBackup,
-                                );
-                              }));
-                            });
-                          }
-                        });
+                        //! disable local_auth
+                        // sl.get<BiometricUtil>().hasBiometrics().then((hasBiometrics) {
+                        //   if (authMethod.method == AuthMethod.BIOMETRICS &&
+                        //       hasBiometrics) {
+                        //     sl.get<BiometricUtil>().authenticateWithBiometrics(
+                        //             context,
+                        //             AppLocalization.of(context)
+                        //                 .fingerprintSeedBackup)
+                        //         .then((authenticated) {
+                        //       if (authenticated) {
+                        //         sl.get<HapticUtil>().fingerprintSucess();
+                        //         new AppSeedBackupSheet()
+                        //             .mainBottomSheet(context);
+                        //       }
+                        //     });
+                        //   } else {
+                        //     // PIN Authentication
+                        //     sl.get<Vault>().getPin().then((expectedPin) {
+                        //       Navigator.of(context).push(MaterialPageRoute(
+                        //           builder: (BuildContext context) {
+                        //         return new PinScreen(
+                        //           PinOverlayType.ENTER_PIN,
+                        //           (pin) {
+                        //             Navigator.of(context).pop();
+                        //             new AppSeedBackupSheet()
+                        //                 .mainBottomSheet(context);
+                        //           },
+                        //           expectedPin: expectedPin,
+                        //           description:
+                        //               AppLocalization.of(context).pinSeedBackup,
+                        //         );
+                        //       }));
+                        //     });
+                        //   }
+                        // });
                       });
                     }),
                     Divider(

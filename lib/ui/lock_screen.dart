@@ -4,7 +4,7 @@ import 'package:natrium_wallet_flutter/service_locator.dart';
 import 'package:natrium_wallet_flutter/model/authentication_method.dart';
 import 'package:natrium_wallet_flutter/model/vault.dart';
 import 'package:natrium_wallet_flutter/styles.dart';
-import 'package:natrium_wallet_flutter/util/biometrics.dart';
+// import 'package:natrium_wallet_flutter/util/biometrics.dart'; //! disable local_auth
 import 'package:natrium_wallet_flutter/util/nanoutil.dart';
 import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
 import 'package:natrium_wallet_flutter/util/caseconverter.dart';
@@ -138,52 +138,53 @@ class _AppLockScreenState extends State<AppLockScreen> {
     setState(() {
       _lockedOut = false;
     });
-    sl.get<SharedPrefsUtil>().getAuthMethod().then((authMethod) {
-      sl.get<BiometricUtil>().hasBiometrics().then((hasBiometrics) {
-        if (authMethod.method == AuthMethod.BIOMETRICS && hasBiometrics) {
-          setState(() {
-            _showLock = true;
-            _showUnlockButton = true;
-          });
-          sl.get<BiometricUtil>().authenticateWithBiometrics(context,
-                  AppLocalization.of(context).unlockBiometrics)
-              .then((authenticated) {
-            if (authenticated) {
-              _goHome();
-            } else {
-              setState(() {
-                _showUnlockButton = true;
-              });
-            }
-          });
-        } else {
-          // PIN Authentication
-          sl.get<Vault>().getPin().then((expectedPin) {
-            if (transitions) {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return _buildPinScreen(context, expectedPin);
-                }),
-              );
-            } else {
-              Navigator.of(context).push(
-                NoPushTransitionRoute(builder: (BuildContext context) {
-                  return _buildPinScreen(context, expectedPin);
-                }),
-              );
-            }
-            Future.delayed(Duration(milliseconds: 200), () {
-              if (mounted) {
-                setState(() {
-                  _showUnlockButton = true;
-                  _showLock = true;
-                });
-              }
-            });
-          });
-        }
-      });
-    });
+    //! disable local_auth
+    // sl.get<SharedPrefsUtil>().getAuthMethod().then((authMethod) {
+    //   sl.get<BiometricUtil>().hasBiometrics().then((hasBiometrics) {
+    //     if (authMethod.method == AuthMethod.BIOMETRICS && hasBiometrics) {
+    //       setState(() {
+    //         _showLock = true;
+    //         _showUnlockButton = true;
+    //       });
+    //       sl.get<BiometricUtil>().authenticateWithBiometrics(context,
+    //               AppLocalization.of(context).unlockBiometrics)
+    //           .then((authenticated) {
+    //         if (authenticated) {
+    //           _goHome();
+    //         } else {
+    //           setState(() {
+    //             _showUnlockButton = true;
+    //           });
+    //         }
+    //       });
+    //     } else {
+    //       // PIN Authentication
+    //       sl.get<Vault>().getPin().then((expectedPin) {
+    //         if (transitions) {
+    //           Navigator.of(context).push(
+    //             MaterialPageRoute(builder: (BuildContext context) {
+    //               return _buildPinScreen(context, expectedPin);
+    //             }),
+    //           );
+    //         } else {
+    //           Navigator.of(context).push(
+    //             NoPushTransitionRoute(builder: (BuildContext context) {
+    //               return _buildPinScreen(context, expectedPin);
+    //             }),
+    //           );
+    //         }
+    //         Future.delayed(Duration(milliseconds: 200), () {
+    //           if (mounted) {
+    //             setState(() {
+    //               _showUnlockButton = true;
+    //               _showLock = true;
+    //             });
+    //           }
+    //         });
+    //       });
+    //     }
+    //   });
+    // });
   }
 
   @override
@@ -245,7 +246,7 @@ class _AppLockScreenState extends State<AppLockScreen> {
                 _showUnlockButton
                     ? Row(
                         children: <Widget>[
-                          AppButton.buildAppButton(context, 
+                          AppButton.buildAppButton(context,
                               AppButtonType.PRIMARY,
                               _lockedOut
                                   ? _countDownTxt

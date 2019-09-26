@@ -7,20 +7,20 @@ import 'package:natrium_wallet_flutter/appstate_container.dart';
 import 'package:natrium_wallet_flutter/dimens.dart';
 import 'package:natrium_wallet_flutter/styles.dart';
 import 'package:natrium_wallet_flutter/localization.dart';
-import 'package:natrium_wallet_flutter/service_locator.dart';
+// import 'package:natrium_wallet_flutter/service_locator.dart';
 import 'package:natrium_wallet_flutter/bus/events.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/buttons.dart';
-import 'package:natrium_wallet_flutter/ui/widgets/dialog.dart';
+// import 'package:natrium_wallet_flutter/ui/widgets/dialog.dart';
 import 'package:natrium_wallet_flutter/ui/widgets/sheets.dart';
 import 'package:natrium_wallet_flutter/ui/util/ui_util.dart';
 import 'package:natrium_wallet_flutter/util/numberutil.dart';
-import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
-import 'package:natrium_wallet_flutter/util/biometrics.dart';
-import 'package:natrium_wallet_flutter/util/hapticutil.dart';
+// import 'package:natrium_wallet_flutter/util/sharedprefsutil.dart';
+// import 'package:natrium_wallet_flutter/util/biometrics.dart'; //! disable local_auth
+// import 'package:natrium_wallet_flutter/util/hapticutil.dart';
 import 'package:natrium_wallet_flutter/util/caseconverter.dart';
-import 'package:natrium_wallet_flutter/model/authentication_method.dart';
-import 'package:natrium_wallet_flutter/model/vault.dart';
-import 'package:natrium_wallet_flutter/ui/widgets/security.dart';
+// import 'package:natrium_wallet_flutter/model/authentication_method.dart';
+// import 'package:natrium_wallet_flutter/model/vault.dart';
+// import 'package:natrium_wallet_flutter/ui/widgets/security.dart';
 
 class AppSendConfirmSheet {
   String _amount;
@@ -228,96 +228,96 @@ class AppSendConfirmSheet {
                                         AppLocalization.of(context).confirm,
                                         context),
                                     Dimens.BUTTON_TOP_DIMENS, onPressed: () {
-                                  // Authenticate
-                                  sl.get<SharedPrefsUtil>()
-                                      .getAuthMethod()
-                                      .then((authMethod) {
-                                    sl.get<BiometricUtil>().hasBiometrics()
-                                        .then((hasBiometrics) {
-                                      if (authMethod.method ==
-                                              AuthMethod.BIOMETRICS &&
-                                          hasBiometrics) {
-                                        sl.get<BiometricUtil>()
-                                                .authenticateWithBiometrics(
-                                                    context,
-                                                    AppLocalization.of(context)
-                                                        .sendAmountConfirm
-                                                        .replaceAll(
-                                                            "%1", _amount))
-                                            .then((authenticated) {
-                                          if (authenticated) {
-                                            sl.get<HapticUtil>().fingerprintSucess();
-                                            animationOpen = true;
-                                            Navigator.of(context).push(
-                                                AnimationLoadingOverlay(
-                                                    AnimationType.SEND,
-                                                    StateContainer.of(context)
-                                                        .curTheme
-                                                        .animationOverlayStrong,
-                                                    StateContainer.of(context)
-                                                        .curTheme
-                                                        .animationOverlayMedium,
-                                                    onPoppedCallback: () =>
-                                                        animationOpen = false));
-                                            StateContainer.of(context)
-                                                .requestSend(
-                                                    StateContainer.of(context)
-                                                        .wallet
-                                                        .frontier,
-                                                    _destination,
-                                                    _maxSend ? "0" : _amountRaw,
-                                                    localCurrencyAmount:
-                                                        _localCurrency);
-                                          }
-                                        });
-                                      } else {
-                                        // PIN Authentication
-                                        sl.get<Vault>().getPin().then((expectedPin) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(builder:
-                                                  (BuildContext context) {
-                                            return new PinScreen(
-                                              PinOverlayType.ENTER_PIN,
-                                              (pin) {
-                                                Navigator.of(context).pop();
-                                                animationOpen = true;
-                                                Navigator.of(context).push(
-                                                    AnimationLoadingOverlay(
-                                                        AnimationType.SEND,
-                                                        StateContainer.of(
-                                                                context)
-                                                            .curTheme
-                                                            .animationOverlayStrong,
-                                                        StateContainer.of(
-                                                                context)
-                                                            .curTheme
-                                                            .animationOverlayMedium,
-                                                        onPoppedCallback: () =>
-                                                            animationOpen =
-                                                                false));
-                                                StateContainer.of(context)
-                                                    .requestSend(
-                                                        StateContainer.of(
-                                                                context)
-                                                            .wallet
-                                                            .frontier,
-                                                        _destination,
-                                                        _maxSend
-                                                            ? "0"
-                                                            : _amountRaw);
-                                              },
-                                              expectedPin: expectedPin,
-                                              description:
-                                                  AppLocalization.of(context)
-                                                      .sendAmountConfirmPin
-                                                      .replaceAll(
-                                                          "%1", _amount),
-                                            );
-                                          }));
-                                        });
-                                      }
-                                    });
-                                  });
+                                  //! Authenticate, disable local_auth
+                                  // sl.get<SharedPrefsUtil>()
+                                  //     .getAuthMethod()
+                                  //     .then((authMethod) {
+                                  //   sl.get<BiometricUtil>().hasBiometrics()
+                                  //       .then((hasBiometrics) {
+                                  //     if (authMethod.method ==
+                                  //             AuthMethod.BIOMETRICS &&
+                                  //         hasBiometrics) {
+                                  //       sl.get<BiometricUtil>()
+                                  //               .authenticateWithBiometrics(
+                                  //                   context,
+                                  //                   AppLocalization.of(context)
+                                  //                       .sendAmountConfirm
+                                  //                       .replaceAll(
+                                  //                           "%1", _amount))
+                                  //           .then((authenticated) {
+                                  //         if (authenticated) {
+                                  //           sl.get<HapticUtil>().fingerprintSucess();
+                                  //           animationOpen = true;
+                                  //           Navigator.of(context).push(
+                                  //               AnimationLoadingOverlay(
+                                  //                   AnimationType.SEND,
+                                  //                   StateContainer.of(context)
+                                  //                       .curTheme
+                                  //                       .animationOverlayStrong,
+                                  //                   StateContainer.of(context)
+                                  //                       .curTheme
+                                  //                       .animationOverlayMedium,
+                                  //                   onPoppedCallback: () =>
+                                  //                       animationOpen = false));
+                                  //           StateContainer.of(context)
+                                  //               .requestSend(
+                                  //                   StateContainer.of(context)
+                                  //                       .wallet
+                                  //                       .frontier,
+                                  //                   _destination,
+                                  //                   _maxSend ? "0" : _amountRaw,
+                                  //                   localCurrencyAmount:
+                                  //                       _localCurrency);
+                                  //         }
+                                  //       });
+                                  //     } else {
+                                  //       // PIN Authentication
+                                  //       sl.get<Vault>().getPin().then((expectedPin) {
+                                  //         Navigator.of(context).push(
+                                  //             MaterialPageRoute(builder:
+                                  //                 (BuildContext context) {
+                                  //           return new PinScreen(
+                                  //             PinOverlayType.ENTER_PIN,
+                                  //             (pin) {
+                                  //               Navigator.of(context).pop();
+                                  //               animationOpen = true;
+                                  //               Navigator.of(context).push(
+                                  //                   AnimationLoadingOverlay(
+                                  //                       AnimationType.SEND,
+                                  //                       StateContainer.of(
+                                  //                               context)
+                                  //                           .curTheme
+                                  //                           .animationOverlayStrong,
+                                  //                       StateContainer.of(
+                                  //                               context)
+                                  //                           .curTheme
+                                  //                           .animationOverlayMedium,
+                                  //                       onPoppedCallback: () =>
+                                  //                           animationOpen =
+                                  //                               false));
+                                  //               StateContainer.of(context)
+                                  //                   .requestSend(
+                                  //                       StateContainer.of(
+                                  //                               context)
+                                  //                           .wallet
+                                  //                           .frontier,
+                                  //                       _destination,
+                                  //                       _maxSend
+                                  //                           ? "0"
+                                  //                           : _amountRaw);
+                                  //             },
+                                  //             expectedPin: expectedPin,
+                                  //             description:
+                                  //                 AppLocalization.of(context)
+                                  //                     .sendAmountConfirmPin
+                                  //                     .replaceAll(
+                                  //                         "%1", _amount),
+                                  //           );
+                                  //         }));
+                                  //       });
+                                  //     }
+                                  //   });
+                                  // });
                                 }),
                               ],
                             ),
